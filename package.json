@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/JBLOZ/SOD/issues"
   },
-  "homepage": "https://github.com/JBLOZ/SOD#readme"
+  "homepage": "https://github.com/JBLOZ/SOD#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
 }
