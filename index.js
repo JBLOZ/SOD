@@ -1,12 +1,21 @@
-
-const http = require('http');
+// index.js
+'use strict';
+const express = require('express');
+const mongoose = require('mongoose');
+const productoController = require('./controllers/productoController'); // Importar el controlador
+const app = express();
 const PORT = 8080;
-const server = http.createServer();
-function HTTP_Response(request, response) {
-response.writeHead(200, {'Content-Type': 'text/plain'});
-response.write('Hola a todas y a todos!\n');
-response.end();
-}
-server.on('request', HTTP_Response);
-server.listen(PORT);
-console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+// Conectar a MongoDB
+mongoose.connect('mongodb://localhost:27017/producto')
+.then(() => {
+console.log('Conexión a la base de datos establecida');
+}).catch(err => {
+console.error('Error de conexión a la base de datos:', err);
+});
+app.use(express.json());
+// Definir las rutas y asignarles los métodos del controlador
+app.get('/api/producto/:id', productoController.obtenerProductoPorId);
+app.post('/api/producto', productoController.crearProducto);
+app.listen(PORT, () => {
+console.log(`API REST ejecutándose en http://localhost:${PORT}`);
+});
